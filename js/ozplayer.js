@@ -222,8 +222,8 @@
 		}
 
 		btnOnVideo.css({
-			'left' : $(video).width() / 2 - btnOnVideo.width() / 2,
-			'top' : $(video).height() / 2 - btnOnVideo.height() / 2
+			'left' : $(video).offset().left + $(video).width() / 2 - btnOnVideo.outerWidth(true) / 2,
+			'top' : $(video).offset().top + $(video).height() / 2 - btnOnVideo.outerHeight(true) / 2
 		});
 
 	}
@@ -274,6 +274,7 @@ function exitFscreen(){
 	controls.removeClass('fscreen-controls');
 	fscreen.find('i').removeClass('fa-compress').addClass('fa-expand');
 	$(video).css('max-height',vidHeight + 'px');
+	bar.css('width','100%');
 
 	isFscreen = false;
 
