@@ -32,7 +32,7 @@
 	<span id='current'>00:00 / </span>\
 	<span id='length'>00:00</span>\
 	</div>\
-	<button id='ask' class='btn btn-default' disabled='disabled'><i class='fa fa-plus' aria-hidden='true'></i> <i class='fa fa-question-circle' aria-hidden='true'></i></button>\
+	<button id='ask' title='Soru Sor' class='btn btn-default' disabled='disabled'><i class='fa fa-plus' aria-hidden='true'></i> <i class='fa fa-question-circle' aria-hidden='true'></i></button>\
 	<button id='fscreen' class='btn btn-default'><i class='fa fa-expand' aria-hidden='true'></i></button>\
 	<div id='volume-bg'><div id='volumeThumb'></div></div>\
 	<span id='volume-icon' class='fa fa-volume-up'></span>\
@@ -163,7 +163,7 @@
 	function oz_pause(){
 		video.pause();
 		playBtn.find('i').removeClass('fa-pause').addClass('fa-play');
-		btnOnVideo.show().find('i').removeClass('fa-play fa-circle-o-notch spinner').addClass('fa-pause');
+		btnOnVideo.show().find('i').removeClass('fa-play fa-circle-o-notch spinner').addClass('fa-play');
 	}
 
 	function oz_play(){
@@ -222,8 +222,8 @@
 		}
 
 		btnOnVideo.css({
-			'left' : $(video).offset().left + $(video).width() / 2 - btnOnVideo.outerWidth(true) / 2,
-			'top' : $(video).offset().top + $(video).height() / 2 - btnOnVideo.outerHeight(true) / 2
+			'left' : ($(video).outerWidth(true)/2 - btnOnVideo.outerWidth(true)/2) + 'px',//$(video).position().left + $(video).width() / 2 - btnOnVideo.outerWidth(true) / 2,
+			'top' : ($(video).outerHeight(true)/2 + btnOnVideo.outerHeight(true)/2) + 'px'//$(video).position().top + $(video).height() / 2 - btnOnVideo.outerHeight(true) / 2
 		});
 
 	}
@@ -483,6 +483,12 @@ $(window).resize(function(){
 		drawMarks();
 });
 
+$('div').on('scroll', function(){
+	calcElements();
+	console.log('kaydirma : ' + $(video).parent().scrollTop());
+	btnOnVideo.css('top',(-$(video).parent().scrollTop() + $(video).position().top + $(video).height/2));
+});
+
 $(window).load(function(){
 	drawMarks();
 	vidHeight = $(video).height();
@@ -507,7 +513,7 @@ $.fn.ozplayer = function(params){
 	var elem = $(video).detach();
 	$('#video-container').append(elem);
 	$('#video-container').append(ctrHTML);
-	$('#video-container').append(btnOnVideoHTML);
+	$(video).before(btnOnVideoHTML);
 	btnOnVideo = $('#btnOnVideo');
 
 	$.fn.ozplayer.gotoAndStop = function(to) {
