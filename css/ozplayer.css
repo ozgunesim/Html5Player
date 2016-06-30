@@ -259,6 +259,7 @@ video::-webkit-media-controls {
 	min-width: 60px;
 	text-align: center;
 	transition: box-shadow 0.4s;
+	outline: none;
 }
 
 #btnOnVideo:hover{
