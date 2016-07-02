@@ -312,7 +312,8 @@ video::-webkit-media-controls {
 }
 
 #oz_video{
-	margin-bottom: -5px;
+	/*margin-bottom: -5px;*/
+	display: block;
 }
 
 
